@@ -128,7 +128,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="relative h-[90vh] min-h-[650px] w-full flex items-center overflow-hidden"
+      className="relative h-[75vh] min-h-[500px] w-full flex items-center overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >

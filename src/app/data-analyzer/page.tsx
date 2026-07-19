@@ -85,6 +85,7 @@ export default function DataAnalyzerPage() {
     if (!file) return null;
     if (file.name.endsWith(".csv")) return "📊";
     if (file.name.endsWith(".json")) return "📋";
+    if (file.name.endsWith(".pdf")) return "📄";
     return "📗";
   };
 
@@ -123,7 +124,7 @@ export default function DataAnalyzerPage() {
             <input
               ref={fileInputRef}
               type="file"
-              accept=".csv,.json,.xlsx,.xls"
+              accept=".csv,.json,.xlsx,.xls,.pdf"
               onChange={handleFileChange}
               className="hidden"
             />
@@ -141,7 +142,9 @@ export default function DataAnalyzerPage() {
                       ? "CSV"
                       : file.name.endsWith(".json")
                         ? "JSON"
-                        : "Excel"}
+                        : file.name.endsWith(".pdf")
+                          ? "PDF"
+                          : "Excel"}
                   </p>
                 </div>
                 <button
@@ -164,7 +167,7 @@ export default function DataAnalyzerPage() {
                     Drop your file here or click to browse
                   </p>
                   <p className="text-sm text-neutral-500">
-                    Supports CSV, JSON, and Excel files up to 10MB
+                    Supports CSV, JSON, Excel, and PDF files up to 10MB
                   </p>
                 </div>
               </div>

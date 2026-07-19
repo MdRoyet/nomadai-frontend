@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 interface User {
   _id: string;
@@ -29,8 +31,9 @@ export const useAuthStore = create<AuthState>()(
       },
       logout: () => {
         localStorage.removeItem("nomadai_token");
-        // Clear cookie
         document.cookie = "nomadai_token=; path=/; max-age=0";
+        // Sign out from Firebase as well
+        signOut(auth).catch(() => {});
         set({ user: null, token: null });
       },
     }),

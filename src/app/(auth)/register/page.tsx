@@ -17,29 +17,34 @@ import {
   Lock,
   Eye,
   EyeOff,
+  User,
   Compass,
   Sparkles,
   MapPin,
   Globe,
   ArrowRight,
-  Zap,
+  CheckCircle2,
 } from "lucide-react";
 
 const schema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const features = [
-  { icon: Sparkles, text: "AI-powered trip planning" },
-  { icon: MapPin, text: "150+ curated destinations" },
-  { icon: Globe, text: "Available worldwide" },
-  { icon: Zap, text: "Instant booking & recommendations" },
+const benefits = [
+  { icon: Sparkles, text: "AI-powered travel recommendations" },
+  { icon: MapPin, text: "Save & compare destinations" },
+  { icon: Globe, text: "Join 50K+ travelers worldwide" },
 ];
 
-export default function LoginPage() {
+const passwordChecks = [
+  { label: "At least 6 characters", test: (p: string) => p.length >= 6 },
+];
+
+export default function RegisterPage() {
   const router = useRouter();
   const setAuth = useAuthStore((state) => state.setAuth);
   const [serverError, setServerError] = useState("");
@@ -49,41 +54,26 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
+  const password = watch("password", "");
+
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     setServerError("");
     try {
-      const res = await api.post("/auth/login", data);
+      const res = await api.post("/auth/register", data);
       setAuth(res.data, res.data.token);
       router.push("/");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
-        setServerError(err.response?.data?.message || "Failed to login");
+        setServerError(err.response?.data?.message || "Failed to register");
       } else {
-        setServerError("Failed to login");
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleDemoLogin = async () => {
-    setIsLoading(true);
-    setServerError("");
-    try {
-      const res = await api.get("/auth/demo");
-      setAuth(res.data, res.data.token);
-      router.push("/");
-    } catch (err: unknown) {
-      if (err instanceof AxiosError) {
-        setServerError(err.response?.data?.message || "Failed to start demo");
-      } else {
-        setServerError("Failed to start demo");
+        setServerError("Failed to register");
       }
     } finally {
       setIsLoading(false);
@@ -93,7 +83,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex">
       {/* Left Panel — Branded Background */}
-      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-teal-600 via-emerald-700 to-teal-900">
+      <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden bg-gradient-to-br from-violet-600 via-indigo-700 to-purple-900">
         {/* Mesh pattern */}
         <div className="absolute inset-0 opacity-[0.06]" style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
@@ -102,29 +92,29 @@ export default function LoginPage() {
 
         {/* Floating shapes */}
         <motion.div
-          className="absolute top-20 left-[15%] w-24 h-24 bg-white/5 rounded-3xl rotate-12"
-          animate={{ rotate: [12, 20, 12], y: [0, -15, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-16 right-[15%] w-28 h-28 bg-white/5 rounded-3xl rotate-12"
+          animate={{ rotate: [12, 22, 12], y: [0, -20, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-32 right-[20%] w-20 h-20 bg-white/5 rounded-2xl -rotate-6"
-          animate={{ rotate: [-6, -15, -6], y: [0, 10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-24 left-[18%] w-20 h-20 bg-white/5 rounded-2xl -rotate-12"
+          animate={{ rotate: [-12, -20, -12], y: [0, 12, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         />
         <motion.div
-          className="absolute top-1/3 right-[10%] w-16 h-16 bg-white/5 rounded-xl rotate-45"
-          animate={{ rotate: [45, 55, 45] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute top-1/2 right-[8%] w-16 h-16 bg-white/5 rounded-xl rotate-45"
+          animate={{ rotate: [45, 60, 45] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         />
         <motion.div
-          className="absolute bottom-1/4 left-[10%] w-14 h-14 bg-white/5 rounded-2xl rotate-12"
-          animate={{ rotate: [12, 25, 12], y: [0, -10, 0] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          className="absolute top-[35%] left-[8%] w-12 h-12 bg-white/5 rounded-2xl rotate-12"
+          animate={{ rotate: [12, 30, 12], y: [0, -8, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
         />
 
         {/* Glow orbs */}
-        <div className="absolute top-0 left-1/3 w-96 h-96 bg-emerald-400/10 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-teal-300/10 rounded-full blur-[100px]" />
+        <div className="absolute top-0 right-1/3 w-96 h-96 bg-purple-400/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-indigo-300/10 rounded-full blur-[100px]" />
 
         {/* Content */}
         <div className="relative z-10 flex flex-col justify-center px-16 max-w-xl">
@@ -141,19 +131,19 @@ export default function LoginPage() {
             </div>
 
             <h2 className="text-4xl xl:text-5xl font-bold text-white leading-tight mb-6">
-              Welcome back to
+              Start your
               <br />
-              <span className="bg-gradient-to-r from-amber-300 to-orange-300 bg-clip-text text-transparent">
-                your next adventure
+              <span className="bg-gradient-to-r from-amber-300 to-pink-300 bg-clip-text text-transparent">
+                travel journey
               </span>
             </h2>
 
             <p className="text-white/70 text-lg mb-10 leading-relaxed">
-              Log in to access your personalized travel dashboard, AI concierge, and saved destinations.
+              Create your free account and unlock AI-powered travel planning, personalized recommendations, and a world of destinations.
             </p>
 
             <div className="space-y-4">
-              {features.map((feat, i) => (
+              {benefits.map((benefit, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
@@ -162,17 +152,35 @@ export default function LoginPage() {
                   className="flex items-center gap-3"
                 >
                   <div className="w-9 h-9 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/10">
-                    <feat.icon className="w-4 h-4 text-amber-300" />
+                    <benefit.icon className="w-4 h-4 text-amber-300" />
                   </div>
-                  <span className="text-white/80 text-sm font-medium">{feat.text}</span>
+                  <span className="text-white/80 text-sm font-medium">{benefit.text}</span>
                 </motion.div>
               ))}
             </div>
+
+            {/* Trust badges */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="mt-10 flex items-center gap-6 text-white/50 text-sm"
+            >
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4" /> Free forever
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4" /> No credit card
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4" /> Cancel anytime
+              </span>
+            </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* Right Panel — Login Form */}
+      {/* Right Panel — Register Form */}
       <div className="flex-1 flex items-center justify-center px-6 py-12 bg-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -182,14 +190,14 @@ export default function LoginPage() {
         >
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2 mb-8">
-            <Compass className="w-7 h-7 text-teal-600" />
+            <Compass className="w-7 h-7 text-indigo-600" />
             <span className="font-bold text-xl text-neutral-900">NomadAI</span>
           </div>
 
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-neutral-900 mb-2">Sign in</h1>
+            <h1 className="text-3xl font-bold text-neutral-900 mb-2">Create account</h1>
             <p className="text-neutral-500">
-              Enter your credentials to access your account
+              Join thousands of travelers using AI to plan better trips
             </p>
           </div>
 
@@ -206,7 +214,7 @@ export default function LoginPage() {
 
           {/* Google Login */}
           <GoogleAuthButton
-            mode="login"
+            mode="register"
             onError={setServerError}
           />
 
@@ -216,12 +224,26 @@ export default function LoginPage() {
               <div className="w-full border-t border-neutral-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-4 text-neutral-400">or sign in with email</span>
+              <span className="bg-white px-4 text-neutral-400">or sign up with email</span>
             </div>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Full Name</label>
+              <div className="relative">
+                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-neutral-400" />
+                <input
+                  type="text"
+                  placeholder="John Doe"
+                  {...register("name")}
+                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white transition-all"
+                />
+              </div>
+              {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
+            </div>
+
             <div>
               <label className="block text-sm font-medium text-neutral-700 mb-1.5">Email</label>
               <div className="relative">
@@ -230,7 +252,7 @@ export default function LoginPage() {
                   type="email"
                   placeholder="you@example.com"
                   {...register("email")}
-                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-400 focus:bg-white transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white transition-all"
                 />
               </div>
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
@@ -242,9 +264,9 @@ export default function LoginPage() {
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-neutral-400" />
                 <input
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder="Create a strong password"
                   {...register("password")}
-                  className="w-full pl-11 pr-12 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-400 focus:bg-white transition-all"
+                  className="w-full pl-11 pr-12 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white transition-all"
                 />
                 <button
                   type="button"
@@ -255,43 +277,49 @@ export default function LoginPage() {
                 </button>
               </div>
               {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password.message}</p>}
+
+              {/* Password strength indicator */}
+              {password && (
+                <div className="mt-2 space-y-1">
+                  {passwordChecks.map((check, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <CheckCircle2
+                        className={`w-3.5 h-3.5 ${check.test(password) ? "text-emerald-500" : "text-neutral-300"}`}
+                      />
+                      <span className={`text-xs ${check.test(password) ? "text-emerald-600" : "text-neutral-400"}`}>
+                        {check.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
 
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded border-neutral-300 text-teal-600 focus:ring-teal-500" />
-                <span className="text-sm text-neutral-600">Remember me</span>
-              </label>
-              <Link href="#" className="text-sm text-teal-600 hover:text-teal-700 font-medium">
-                Forgot password?
-              </Link>
+            <div className="flex items-start gap-2">
+              <input type="checkbox" className="w-4 h-4 mt-0.5 rounded border-neutral-300 text-indigo-600 focus:ring-indigo-500" />
+              <span className="text-sm text-neutral-500">
+                I agree to the{" "}
+                <Link href="#" className="text-indigo-600 hover:underline">Terms of Service</Link>
+                {" "}and{" "}
+                <Link href="#" className="text-indigo-600 hover:underline">Privacy Policy</Link>
+              </span>
             </div>
 
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-teal-500 to-emerald-600 text-white py-3.5 rounded-xl font-semibold hover:from-teal-600 hover:to-emerald-700 transition-all duration-300 shadow-lg shadow-teal-500/20 hover:shadow-teal-500/30 disabled:opacity-50 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-indigo-500 to-violet-600 text-white py-3.5 rounded-xl font-semibold hover:from-indigo-600 hover:to-violet-700 transition-all duration-300 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 disabled:opacity-50 flex items-center justify-center gap-2"
             >
-              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Sign In"}
+              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Create Account"}
               {!isLoading && <ArrowRight className="w-4 h-4" />}
             </button>
           </form>
 
-          {/* Demo Login */}
-          <button
-            onClick={handleDemoLogin}
-            disabled={isLoading}
-            className="w-full mt-4 border border-teal-200 text-teal-700 py-3 rounded-xl font-medium hover:bg-teal-50 transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
-          >
-            <Zap className="w-4 h-4" />
-            {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Try Demo — Instant Login"}
-          </button>
-
-          {/* Register Link */}
+          {/* Login Link */}
           <p className="text-center text-sm text-neutral-500 mt-8">
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="text-teal-600 hover:text-teal-700 font-semibold">
-              Create one free
+            Already have an account?{" "}
+            <Link href="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold">
+              Sign in
             </Link>
           </p>
         </motion.div>
