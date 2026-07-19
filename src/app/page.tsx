@@ -1,4 +1,5 @@
 import HeroSection from "@/components/home/HeroSection";
+import FeaturedDestinations from "@/components/home/FeaturedDestinations";
 import StatsSection from "@/components/home/StatsSection";
 import CategoriesSection from "@/components/home/CategoriesSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <HeroSection />
+      <FeaturedDestinations />
       <StatsSection />
       <CategoriesSection />
       <HowItWorksSection />

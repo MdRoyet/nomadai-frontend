@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useMemo } from "react";
 import api from "@/lib/api";
 import {
   Upload,
@@ -13,7 +13,24 @@ import {
   Loader2,
   Table,
   ArrowRight,
+  PieChart as PieChartIcon,
+  Activity,
 } from "lucide-react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  LineChart,
+  Line,
+  Legend,
+} from "recharts";
 
 interface KPI {
   label: string;
@@ -28,6 +45,163 @@ interface AnalysisResult {
   kpis: KPI[];
   recommendations: string[];
   rawData: { headers: string[]; rows: (string | number)[][]; rowCount: number };
+}
+
+const CHART_COLORS = ["#0d9488", "#f59e0b", "#4338ca", "#f43f5e", "#8b5cf6", "#06b6d4", "#10b981", "#ec4899", "#14b8a6", "#f97316"];
+
+function DataCharts({ rawData }: { rawData: AnalysisResult["rawData"] }) {
+  const { chartData, numericCols, categoricalCol, pieData, lineData } = useMemo(() => {
+    const { headers, rows } = rawData;
+    // Find numeric columns
+    const numericIndices: number[] = [];
+    const categoricalIdx = headers.findIndex((_, i) =>
+      rows.slice(0, 20).some((r) => typeof r[i] === "string" && isNaN(Number(r[i])))
+    );
+
+    headers.forEach((_, i) => {
+      if (i === categoricalIdx) return;
+      const numCount = rows.slice(0, 20).filter((r) => typeof r[i] === "number" || !isNaN(Number(r[i]))).length;
+      if (numCount > rows.slice(0, 20).length * 0.5) numericIndices.push(i);
+    });
+
+    // Bar chart data — first numeric col by category
+    const catIdx = categoricalIdx >= 0 ? categoricalIdx : 0;
+    const numIdx = numericIndices[0] ?? (categoricalIdx >= 0 ? 1 : 0);
+    const barData = rows.slice(0, 15).map((row) => ({
+      name: String(row[catIdx] || "").slice(0, 15),
+      value: Number(row[numIdx]) || 0,
+    }));
+
+    // Pie chart — distribution of first numeric
+    const pieAgg: Record<string, number> = {};
+    rows.forEach((row) => {
+      const key = String(row[catIdx] || "Other").slice(0, 12);
+      const val = Number(row[numIdx]) || 0;
+      pieAgg[key] = (pieAgg[key] || 0) + val;
+    });
+    const pie = Object.entries(pieAgg)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 8)
+      .map(([name, value]) => ({ name, value }));
+
+    // Line data — first 2 numeric cols as lines
+    const lineNums = numericIndices.slice(0, 2);
+    const lineD = rows.slice(0, 15).map((row, i) => {
+      const point: Record<string, string | number> = { idx: i + 1 };
+      lineNums.forEach((ni, li) => {
+        point[`Series ${li + 1}`] = Number(row[ni]) || 0;
+      });
+      return point;
+    });
+
+    return {
+      chartData: barData,
+      numericCols: numericIndices.map((i) => headers[i]),
+      categoricalCol: headers[catIdx],
+      pieData: pie,
+      lineData: lineD,
+    };
+  }, [rawData]);
+
+  if (numericCols.length === 0) return null;
+
+  return (
+    <div>
+      <h3 className="text-lg font-bold text-neutral-900 mb-3 flex items-center gap-2">
+        <Activity className="w-5 h-5 text-primary" /> Data Visualizations
+      </h3>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Bar Chart */}
+        <div className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-sm">
+          <h4 className="text-sm font-semibold text-neutral-700 mb-1">
+            {numericCols[0]} by {categoricalCol}
+          </h4>
+          <p className="text-xs text-neutral-400 mb-4">Bar chart distribution</p>
+          <ResponsiveContainer width="100%" height={280}>
+            <BarChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+              <XAxis dataKey="name" tick={{ fontSize: 11 }} stroke="#94a3b8" />
+              <YAxis tick={{ fontSize: 11 }} stroke="#94a3b8" />
+              <Tooltip
+                contentStyle={{ borderRadius: "12px", border: "1px solid #e2e8f0", boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }}
+              />
+              <Bar dataKey="value" radius={[6, 6, 0, 0]}>
+                {chartData.map((_, i) => (
+                  <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Pie Chart */}
+        {pieData.length > 0 && (
+          <div className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-sm">
+            <h4 className="text-sm font-semibold text-neutral-700 mb-1">
+              Distribution Overview
+            </h4>
+            <p className="text-xs text-neutral-400 mb-4">Proportional breakdown</p>
+            <ResponsiveContainer width="100%" height={280}>
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={60}
+                  outerRadius={100}
+                  paddingAngle={3}
+                  dataKey="value"
+                  label={({ name, percent }) => `${name} ${((percent ?? 0) * 100).toFixed(0)}%`}
+                >
+                  {pieData.map((_, i) => (
+                    <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{ borderRadius: "12px", border: "1px solid #e2e8f0" }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+
+        {/* Line Chart */}
+        {numericCols.length >= 2 && (
+          <div className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-sm lg:col-span-2">
+            <h4 className="text-sm font-semibold text-neutral-700 mb-1">
+              {numericCols[0]} vs {numericCols[1]} Trend
+            </h4>
+            <p className="text-xs text-neutral-400 mb-4">Multi-series line chart</p>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={lineData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+                <XAxis dataKey="idx" tick={{ fontSize: 11 }} stroke="#94a3b8" />
+                <YAxis tick={{ fontSize: 11 }} stroke="#94a3b8" />
+                <Tooltip
+                  contentStyle={{ borderRadius: "12px", border: "1px solid #e2e8f0" }}
+                />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="Series 1"
+                  stroke={CHART_COLORS[0]}
+                  strokeWidth={2}
+                  dot={{ r: 4, fill: CHART_COLORS[0] }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="Series 2"
+                  stroke={CHART_COLORS[1]}
+                  strokeWidth={2}
+                  dot={{ r: 4, fill: CHART_COLORS[1] }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default function DataAnalyzerPage() {
@@ -263,6 +437,9 @@ export default function DataAnalyzerPage() {
               </div>
             </div>
           )}
+
+          {/* Data Visualizations */}
+          <DataCharts rawData={result.rawData} />
 
           {/* Trends & Risks */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
