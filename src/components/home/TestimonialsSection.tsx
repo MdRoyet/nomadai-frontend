@@ -88,9 +88,9 @@ export default function TestimonialsSection() {
   const prev = () => setActiveIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-24 overflow-hidden transition-colors">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-rose-50/30 to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-rose-50/30 to-white dark:from-neutral-900 dark:via-rose-950/10 dark:to-neutral-900 transition-colors" />
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-rose-100/20 to-transparent rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-amber-100/20 to-transparent rounded-full blur-3xl" />
 
@@ -103,11 +103,11 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center gap-2 bg-rose-100 text-rose-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-flex items-center gap-2 bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
             <Heart className="w-4 h-4" />
             Testimonials
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">
             Loved by
             <span className="bg-gradient-to-r from-rose-500 to-pink-500 bg-clip-text text-transparent"> Travelers </span>
             Worldwide
@@ -117,7 +117,7 @@ export default function TestimonialsSection() {
               <Star key={i} className="fill-amber-400 w-6 h-6" />
             ))}
           </div>
-          <p className="text-neutral-500 text-lg mt-3">
+          <p className="text-neutral-500 dark:text-neutral-400 text-lg mt-3">
             4.9 average from 12,000+ reviews
           </p>
         </motion.div>
@@ -131,10 +131,10 @@ export default function TestimonialsSection() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ duration: 0.4 }}
-              className="relative bg-white rounded-3xl p-8 md:p-12 border border-neutral-100 shadow-xl"
+              className="relative bg-white rounded-3xl p-8 md:p-12 border border-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 shadow-xl transition-colors"
             >
               {/* Quote icon */}
-              <Quote className="absolute top-8 right-8 w-12 h-12 text-neutral-100" />
+              <Quote className="absolute top-8 right-8 w-12 h-12 text-neutral-100 dark:text-neutral-700" />
 
               {/* Rating */}
               <div className="flex gap-1 text-amber-400 mb-6">
@@ -144,12 +144,12 @@ export default function TestimonialsSection() {
               </div>
 
               {/* Quote */}
-              <p className="text-xl md:text-2xl text-neutral-700 leading-relaxed mb-8 font-medium">
+              <p className="text-xl md:text-2xl text-neutral-700 dark:text-neutral-300 leading-relaxed mb-8 font-medium">
                 &ldquo;{testimonials[activeIndex].text}&rdquo;
               </p>
 
               {/* Highlight badge */}
-              <div className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 px-4 py-2 rounded-xl text-sm font-semibold mb-8">
+              <div className="inline-flex items-center gap-2 bg-teal-50 text-teal-700 dark:bg-teal-950/30 dark:text-teal-400 px-4 py-2 rounded-xl text-sm font-semibold mb-8">
                 {(() => {
                   const Icon = testimonials[activeIndex].icon;
                   return <Icon className="w-4 h-4" />;
@@ -166,17 +166,17 @@ export default function TestimonialsSection() {
                     className="w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-lg"
                   />
                   <div>
-                    <h4 className="font-bold text-neutral-900 text-lg">
+                    <h4 className="font-bold text-neutral-900 dark:text-neutral-100 text-lg">
                       {testimonials[activeIndex].name}
                     </h4>
-                    <p className="text-neutral-500 text-sm">
+                    <p className="text-neutral-500 dark:text-neutral-400 text-sm">
                       {testimonials[activeIndex].role} • {testimonials[activeIndex].location}
                     </p>
                   </div>
                 </div>
                 <div className="hidden sm:block text-right">
-                  <p className="text-sm font-semibold text-neutral-800">{testimonials[activeIndex].trip}</p>
-                  <p className="text-xs text-neutral-400">{testimonials[activeIndex].date}</p>
+                  <p className="text-sm font-semibold text-neutral-800 dark:text-neutral-200">{testimonials[activeIndex].trip}</p>
+                  <p className="text-xs text-neutral-400 dark:text-neutral-500">{testimonials[activeIndex].date}</p>
                 </div>
               </div>
             </motion.div>
@@ -186,7 +186,7 @@ export default function TestimonialsSection() {
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               onClick={prev}
-              className="p-3 rounded-2xl border border-neutral-200 text-neutral-600 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all duration-300 shadow-sm"
+              className="p-3 rounded-2xl border border-neutral-200 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 dark:hover:bg-neutral-100 dark:hover:text-neutral-900 dark:hover:border-neutral-100 transition-all duration-300 shadow-sm"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -200,7 +200,7 @@ export default function TestimonialsSection() {
                   className={`h-2 rounded-full transition-all duration-300 ${
                     i === activeIndex
                       ? "w-8 bg-gradient-to-r from-rose-500 to-pink-500"
-                      : "w-2 bg-neutral-200 hover:bg-neutral-300"
+                      : "w-2 bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600"
                   }`}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />
@@ -209,7 +209,7 @@ export default function TestimonialsSection() {
 
             <button
               onClick={next}
-              className="p-3 rounded-2xl border border-neutral-200 text-neutral-600 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all duration-300 shadow-sm"
+              className="p-3 rounded-2xl border border-neutral-200 text-neutral-600 dark:border-neutral-700 dark:text-neutral-400 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 dark:hover:bg-neutral-100 dark:hover:text-neutral-900 dark:hover:border-neutral-100 transition-all duration-300 shadow-sm"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5" />
@@ -233,8 +233,8 @@ export default function TestimonialsSection() {
               onClick={() => setActiveIndex(i)}
               className={`relative p-6 rounded-3xl border cursor-pointer transition-all duration-300 ${
                 i === activeIndex
-                  ? "bg-white border-rose-200 shadow-xl ring-2 ring-rose-100"
-                  : "bg-white border-neutral-100 shadow-sm hover:shadow-lg hover:border-neutral-200"
+                  ? "bg-white border-rose-200 dark:bg-neutral-800 dark:border-rose-800 shadow-xl ring-2 ring-rose-100 dark:ring-rose-900/30"
+                  : "bg-white border-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 shadow-sm hover:shadow-lg hover:border-neutral-200 dark:hover:border-neutral-600"
               }`}
             >
               {/* Stars */}
@@ -245,7 +245,7 @@ export default function TestimonialsSection() {
               </div>
 
               {/* Snippet */}
-              <p className="text-neutral-600 text-sm leading-relaxed mb-4 line-clamp-3">
+              <p className="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed mb-4 line-clamp-3">
                 &ldquo;{review.text}&rdquo;
               </p>
 
@@ -257,8 +257,8 @@ export default function TestimonialsSection() {
                   className="w-10 h-10 rounded-xl object-cover"
                 />
                 <div>
-                  <p className="text-sm font-semibold text-neutral-900">{review.name}</p>
-                  <p className="text-xs text-neutral-400">{review.role}</p>
+                  <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">{review.name}</p>
+                  <p className="text-xs text-neutral-400 dark:text-neutral-500">{review.role}</p>
                 </div>
               </div>
             </motion.div>

@@ -181,7 +181,7 @@ export default function RegisterPage() {
       </div>
 
       {/* Right Panel — Register Form */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-white">
+      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-white dark:bg-neutral-900 transition-colors">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -191,12 +191,12 @@ export default function RegisterPage() {
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2 mb-8">
             <Compass className="w-7 h-7 text-indigo-600" />
-            <span className="font-bold text-xl text-neutral-900">NomadAI</span>
+            <span className="font-bold text-xl text-neutral-900 dark:text-neutral-100">NomadAI</span>
           </div>
 
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-neutral-900 mb-2">Create account</h1>
-            <p className="text-neutral-500">
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">Create account</h1>
+            <p className="text-neutral-500 dark:text-neutral-400">
               Join thousands of travelers using AI to plan better trips
             </p>
           </div>
@@ -206,7 +206,7 @@ export default function RegisterPage() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl mb-6 text-sm"
+              className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-xl mb-6 text-sm"
             >
               {serverError}
             </motion.div>
@@ -221,57 +221,57 @@ export default function RegisterPage() {
           {/* Divider */}
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-neutral-200" />
+              <div className="w-full border-t border-neutral-200 dark:border-neutral-700" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-4 text-neutral-400">or sign up with email</span>
+              <span className="bg-white dark:bg-neutral-900 px-4 text-neutral-400">or sign up with email</span>
             </div>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Full Name</label>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">Full Name</label>
               <div className="relative">
                 <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-neutral-400" />
                 <input
                   type="text"
                   placeholder="John Doe"
                   {...register("name")}
-                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white dark:focus:bg-neutral-800 transition-all"
                 />
               </div>
               {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">Email</label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-neutral-400" />
                 <input
                   type="email"
                   placeholder="you@example.com"
                   {...register("email")}
-                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white dark:focus:bg-neutral-800 transition-all"
                 />
               </div>
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">Password</label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-neutral-400" />
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
                   {...register("password")}
-                  className="w-full pl-11 pr-12 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white transition-all"
+                  className="w-full pl-11 pr-12 py-3 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-400 focus:bg-white dark:focus:bg-neutral-800 transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -284,7 +284,7 @@ export default function RegisterPage() {
                   {passwordChecks.map((check, i) => (
                     <div key={i} className="flex items-center gap-2">
                       <CheckCircle2
-                        className={`w-3.5 h-3.5 ${check.test(password) ? "text-emerald-500" : "text-neutral-300"}`}
+                        className={`w-3.5 h-3.5 ${check.test(password) ? "text-emerald-500" : "text-neutral-300 dark:text-neutral-600"}`}
                       />
                       <span className={`text-xs ${check.test(password) ? "text-emerald-600" : "text-neutral-400"}`}>
                         {check.label}
@@ -296,8 +296,8 @@ export default function RegisterPage() {
             </div>
 
             <div className="flex items-start gap-2">
-              <input type="checkbox" className="w-4 h-4 mt-0.5 rounded border-neutral-300 text-indigo-600 focus:ring-indigo-500" />
-              <span className="text-sm text-neutral-500">
+              <input type="checkbox" className="w-4 h-4 mt-0.5 rounded border-neutral-300 dark:border-neutral-600 text-indigo-600 focus:ring-indigo-500" />
+              <span className="text-sm text-neutral-500 dark:text-neutral-400">
                 I agree to the{" "}
                 <Link href="#" className="text-indigo-600 hover:underline">Terms of Service</Link>
                 {" "}and{" "}
@@ -316,7 +316,7 @@ export default function RegisterPage() {
           </form>
 
           {/* Login Link */}
-          <p className="text-center text-sm text-neutral-500 mt-8">
+          <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-8">
             Already have an account?{" "}
             <Link href="/login" className="text-indigo-600 hover:text-indigo-700 font-semibold">
               Sign in

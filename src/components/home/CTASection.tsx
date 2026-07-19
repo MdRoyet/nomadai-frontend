@@ -45,7 +45,7 @@ export default function CTASection() {
   };
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-24 overflow-hidden transition-colors">
       {/* Gradient Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-teal-600 via-emerald-600 to-teal-700" />
 

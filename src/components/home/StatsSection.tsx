@@ -21,8 +21,8 @@ const stats = [
     label: "Global Destinations",
     desc: "Across 6 continents",
     color: "from-teal-500 to-emerald-500",
-    bg: "bg-teal-50",
-    iconColor: "text-teal-600",
+    bg: "bg-teal-50 dark:bg-teal-950/30",
+    iconColor: "text-teal-600 dark:text-teal-400",
   },
   {
     icon: Users,
@@ -31,8 +31,8 @@ const stats = [
     label: "Happy Travelers",
     desc: "And counting every day",
     color: "from-amber-500 to-orange-500",
-    bg: "bg-amber-50",
-    iconColor: "text-amber-600",
+    bg: "bg-amber-50 dark:bg-amber-950/30",
+    iconColor: "text-amber-600 dark:text-amber-400",
   },
   {
     icon: Brain,
@@ -41,8 +41,8 @@ const stats = [
     label: "AI Trips Planned",
     desc: "Intelligent itineraries",
     color: "from-violet-500 to-purple-500",
-    bg: "bg-violet-50",
-    iconColor: "text-violet-600",
+    bg: "bg-violet-50 dark:bg-violet-950/30",
+    iconColor: "text-violet-600 dark:text-violet-400",
   },
   {
     icon: ThumbsUp,
@@ -51,8 +51,8 @@ const stats = [
     label: "Satisfaction Rate",
     desc: "5-star average rating",
     color: "from-rose-500 to-pink-500",
-    bg: "bg-rose-50",
-    iconColor: "text-rose-600",
+    bg: "bg-rose-50 dark:bg-rose-950/30",
+    iconColor: "text-rose-600 dark:text-rose-400",
   },
 ];
 
@@ -117,9 +117,9 @@ const cardVariants = {
 
 export default function StatsSection() {
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section className="relative py-20 overflow-hidden transition-colors">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-teal-50/50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-teal-50/50 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-900 transition-colors" />
       <div className="absolute inset-0 opacity-[0.015]" style={{
         backgroundImage: `radial-gradient(circle at 1px 1px, #0d9488 1px, transparent 0)`,
         backgroundSize: "32px 32px",
@@ -138,15 +138,15 @@ export default function StatsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-flex items-center gap-2 bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
             <TrendingUp className="w-4 h-4" />
             Trusted Worldwide
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">
             Numbers That Speak
             <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent"> for Themselves</span>
           </h2>
-          <p className="text-neutral-500 text-lg max-w-2xl mx-auto">
+          <p className="text-neutral-500 dark:text-neutral-400 text-lg max-w-2xl mx-auto">
             Join thousands of travelers who have transformed their journey planning with NomadAI
           </p>
         </motion.div>
@@ -164,7 +164,7 @@ export default function StatsSection() {
               key={i}
               variants={cardVariants}
               whileHover={{ y: -8, scale: 1.02 }}
-              className="group relative bg-white rounded-3xl p-8 border border-neutral-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
+              className="group relative bg-white rounded-3xl p-8 border border-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden"
             >
               {/* Hover gradient overlay */}
               <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
@@ -176,11 +176,11 @@ export default function StatsSection() {
 
               {/* Value */}
               <div className="relative">
-                <h3 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-2">
+                <h3 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </h3>
-                <p className="font-semibold text-neutral-800 text-lg mb-1">{stat.label}</p>
-                <p className="text-neutral-400 text-sm">{stat.desc}</p>
+                <p className="font-semibold text-neutral-800 dark:text-neutral-200 text-lg mb-1">{stat.label}</p>
+                <p className="text-neutral-400 dark:text-neutral-500 text-sm">{stat.desc}</p>
               </div>
 
               {/* Bottom gradient bar */}
@@ -204,7 +204,7 @@ export default function StatsSection() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5 + i * 0.1 }}
-              className="flex items-center gap-2.5 bg-white border border-neutral-100 text-neutral-600 px-5 py-3 rounded-2xl shadow-sm hover:shadow-md hover:border-teal-200 transition-all duration-300 cursor-default"
+              className="flex items-center gap-2.5 bg-white border border-neutral-100 text-neutral-600 dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-300 px-5 py-3 rounded-2xl shadow-sm hover:shadow-md hover:border-teal-200 transition-all duration-300 cursor-default"
             >
               <badge.icon className="w-4 h-4 text-teal-600" />
               <span className="text-sm font-medium">{badge.text}</span>

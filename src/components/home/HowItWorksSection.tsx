@@ -29,9 +29,9 @@ const steps = [
     ],
     icon: Search,
     color: "from-teal-500 to-emerald-500",
-    bgColor: "bg-teal-50",
-    iconBg: "bg-teal-100",
-    iconColor: "text-teal-600",
+    bgColor: "bg-teal-50 dark:bg-teal-950/30",
+    iconBg: "bg-teal-100 dark:bg-teal-900/30",
+    iconColor: "text-teal-600 dark:text-teal-400",
     image: "https://picsum.photos/seed/nomadai-step1/800/600",
     accent: "teal",
   },
@@ -48,9 +48,9 @@ const steps = [
     ],
     icon: Brain,
     color: "from-violet-500 to-purple-500",
-    bgColor: "bg-violet-50",
-    iconBg: "bg-violet-100",
-    iconColor: "text-violet-600",
+    bgColor: "bg-violet-50 dark:bg-violet-950/30",
+    iconBg: "bg-violet-100 dark:bg-violet-900/30",
+    iconColor: "text-violet-600 dark:text-violet-400",
     image: "https://picsum.photos/seed/nomadai-step2/800/600",
     accent: "violet",
   },
@@ -67,9 +67,9 @@ const steps = [
     ],
     icon: Plane,
     color: "from-amber-500 to-orange-500",
-    bgColor: "bg-amber-50",
-    iconBg: "bg-amber-100",
-    iconColor: "text-amber-600",
+    bgColor: "bg-amber-50 dark:bg-amber-950/30",
+    iconBg: "bg-amber-100 dark:bg-amber-900/30",
+    iconColor: "text-amber-600 dark:text-amber-400",
     image: "https://picsum.photos/seed/nomadai-step3/800/600",
     accent: "amber",
   },
@@ -101,9 +101,9 @@ const stepVariants = {
 
 export default function HowItWorksSection() {
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-24 overflow-hidden transition-colors">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-50" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-50 via-white to-slate-50 dark:from-neutral-900 dark:via-neutral-950 dark:to-neutral-900 transition-colors" />
 
       {/* Geometric accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-teal-100/30 to-transparent rounded-full blur-3xl" />
@@ -118,16 +118,16 @@ export default function HowItWorksSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="inline-flex items-center gap-2 bg-violet-100 text-violet-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-flex items-center gap-2 bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
             <Sparkles className="w-4 h-4" />
             Simple Process
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">
             How
             <span className="bg-gradient-to-r from-teal-600 to-violet-600 bg-clip-text text-transparent"> NomadAI </span>
             Works
           </h2>
-          <p className="text-neutral-500 text-lg max-w-2xl mx-auto">
+          <p className="text-neutral-500 dark:text-neutral-400 text-lg max-w-2xl mx-auto">
             Three simple steps to your next unforgettable journey — powered by AI, designed for you
           </p>
         </motion.div>
@@ -180,10 +180,10 @@ export default function HowItWorksSection() {
                   {miniFeatures.slice(i * 1 + 1, i * 1 + 3).map((feat, j) => (
                     <div
                       key={j}
-                      className="bg-white/90 backdrop-blur-md border border-neutral-100 px-4 py-2.5 rounded-2xl shadow-lg flex items-center gap-2"
+                      className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-md border border-neutral-100 dark:border-neutral-700 px-4 py-2.5 rounded-2xl shadow-lg flex items-center gap-2"
                     >
                       <feat.icon className="w-4 h-4 text-teal-600" />
-                      <span className="text-xs font-semibold text-neutral-700">{feat.label}</span>
+                      <span className="text-xs font-semibold text-neutral-700 dark:text-neutral-200">{feat.label}</span>
                     </div>
                   ))}
                 </motion.div>
@@ -196,11 +196,11 @@ export default function HowItWorksSection() {
                   Step {step.num}
                 </div>
 
-                <h3 className="text-3xl md:text-4xl font-bold text-neutral-900 leading-tight">
+                <h3 className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-neutral-100 leading-tight">
                   {step.title}
                 </h3>
 
-                <p className="text-neutral-500 text-lg leading-relaxed">
+                <p className="text-neutral-500 dark:text-neutral-400 text-lg leading-relaxed">
                   {step.desc}
                 </p>
 
@@ -218,7 +218,7 @@ export default function HowItWorksSection() {
                       <div className={`flex-shrink-0 w-6 h-6 ${step.iconBg} rounded-lg flex items-center justify-center`}>
                         <CheckCircle2 className={`w-4 h-4 ${step.iconColor}`} />
                       </div>
-                      <span className="text-neutral-600 font-medium">{detail}</span>
+                      <span className="text-neutral-600 dark:text-neutral-300 font-medium">{detail}</span>
                     </motion.li>
                   ))}
                 </ul>

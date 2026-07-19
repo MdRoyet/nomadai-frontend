@@ -31,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
-      <body className="bg-white text-neutral-900 antialiased flex flex-col min-h-screen">
+    <html lang="en" className={`${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
+      <body className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 antialiased flex flex-col min-h-screen transition-colors">
         <Providers>
           <Navbar />
           <main className="flex-grow">{children}</main>

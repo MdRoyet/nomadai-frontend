@@ -67,7 +67,7 @@ function TypingIndicator() {
       <div className="w-7 h-7 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center flex-shrink-0 shadow-sm">
         <Bot className="w-3.5 h-3.5 text-white" />
       </div>
-      <div className="bg-neutral-100 px-3.5 py-2.5 rounded-2xl rounded-tl-sm">
+      <div className="bg-neutral-100 dark:bg-neutral-800 px-3.5 py-2.5 rounded-2xl rounded-tl-sm">
         <div className="flex gap-1">
           {[0, 1, 2].map((i) => (
             <span
@@ -279,7 +279,7 @@ export default function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-6 right-6 z-50 w-[380px] h-[520px] bg-white rounded-3xl shadow-2xl border border-neutral-100 flex flex-col overflow-hidden"
+            className="fixed bottom-6 right-6 z-50 w-[380px] h-[520px] bg-white dark:bg-neutral-900 rounded-3xl shadow-2xl border border-neutral-100 dark:border-neutral-800 flex flex-col overflow-hidden transition-colors"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-teal-500 to-emerald-600 p-4 flex items-center justify-between">
@@ -324,11 +324,11 @@ export default function ChatWidget() {
             <div className="flex-grow overflow-y-auto p-3 space-y-3">
               {messages.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center px-4">
-                  <div className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mb-4">
+                  <div className="w-14 h-14 bg-teal-50 dark:bg-teal-950/30 rounded-2xl flex items-center justify-center mb-4">
                     <Sparkles className="w-7 h-7 text-teal-600" />
                   </div>
-                  <h3 className="font-semibold text-neutral-900 mb-1 text-sm">Need travel help?</h3>
-                  <p className="text-neutral-500 text-xs mb-5">
+                  <h3 className="font-semibold text-neutral-900 dark:text-neutral-100 mb-1 text-sm">Need travel help?</h3>
+                  <p className="text-neutral-500 dark:text-neutral-400 text-xs mb-5">
                     I can find destinations, compare prices, and plan your trip.
                   </p>
 
@@ -338,12 +338,12 @@ export default function ChatWidget() {
                       <button
                         key={i}
                         onClick={() => handleSend(action.prompt)}
-                        className="w-full flex items-center gap-3 p-3 bg-neutral-50 border border-neutral-100 rounded-xl text-left hover:bg-teal-50 hover:border-teal-200 transition-all duration-200 group"
+                        className="w-full flex items-center gap-3 p-3 bg-neutral-50 dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 rounded-xl text-left hover:bg-teal-50 dark:hover:bg-teal-950/30 hover:border-teal-200 dark:hover:border-teal-800 transition-all duration-200 group"
                       >
-                        <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                        <div className="w-8 h-8 bg-white dark:bg-neutral-700 rounded-lg flex items-center justify-center shadow-sm">
                           <action.icon className={`w-4 h-4 ${action.color}`} />
                         </div>
-                        <span className="text-xs font-medium text-neutral-700 group-hover:text-teal-700">
+                        <span className="text-xs font-medium text-neutral-700 dark:text-neutral-300 group-hover:text-teal-700">
                           {action.label}
                         </span>
                       </button>
@@ -365,7 +365,7 @@ export default function ChatWidget() {
                             className={`px-3 py-2 rounded-2xl text-xs leading-relaxed ${
                               msg.role === "user"
                                 ? "bg-gradient-to-r from-indigo-500 to-violet-600 text-white rounded-br-sm"
-                                : "bg-neutral-100 text-neutral-800 rounded-bl-sm"
+                                : "bg-neutral-100 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 rounded-bl-sm"
                             }`}
                           >
                             {msg.isStreaming && !msg.content ? (
@@ -387,8 +387,8 @@ export default function ChatWidget() {
                           </p>
                         </div>
                         {msg.role === "user" && (
-                          <div className="w-6 h-6 rounded-full bg-neutral-200 flex items-center justify-center flex-shrink-0">
-                            <User className="w-3 h-3 text-neutral-600" />
+                          <div className="w-6 h-6 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center flex-shrink-0">
+                            <User className="w-3 h-3 text-neutral-600 dark:text-neutral-300" />
                           </div>
                         )}
                       </div>
@@ -400,7 +400,7 @@ export default function ChatWidget() {
                             <button
                               key={i}
                               onClick={() => handleSend(s)}
-                              className="text-[10px] font-medium bg-white border border-neutral-200 text-neutral-600 px-2 py-1 rounded-full hover:border-teal-300 hover:text-teal-700 transition"
+                              className="text-[10px] font-medium bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 px-2 py-1 rounded-full hover:border-teal-300 hover:text-teal-700 transition"
                             >
                               {s}
                             </button>
@@ -416,7 +416,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Input */}
-            <div className="border-t border-neutral-100 p-3">
+            <div className="border-t border-neutral-100 dark:border-neutral-800 p-3">
               <div className="flex gap-2 items-center">
                 <input
                   ref={inputRef}
@@ -425,7 +425,7 @@ export default function ChatWidget() {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Ask about destinations..."
-                  className="flex-grow px-3 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-400 transition"
+                  className="flex-grow px-3 py-2.5 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl text-xs text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-400 transition"
                   disabled={isLoading}
                 />
                 <button

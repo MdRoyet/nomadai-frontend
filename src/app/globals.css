@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-/* 
-  Tailwind v4 Theme Configuration 
+/*
+  Tailwind v4 Theme Configuration
   This replaces the tailwind.config.ts file
 */
 @theme {
@@ -38,10 +38,10 @@
     0 4px 6px -4px rgba(13, 148, 136, 0.1);
 }
 
+/* Enable class-based dark mode */
+@variant dark (&:where(.dark, .dark *));
+
 @layer base {
-  body {
-    @apply bg-white text-neutral-900 font-sans antialiased;
-  }
   h1,
   h2,
   h3,
@@ -59,6 +59,9 @@
 }
 ::-webkit-scrollbar-track {
   background: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
 }
 ::-webkit-scrollbar-thumb {
   background: var(--color-primary);

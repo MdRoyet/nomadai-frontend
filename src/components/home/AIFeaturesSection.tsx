@@ -120,7 +120,7 @@ const cardVariants = {
 
 export default function AIFeaturesSection() {
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-24 overflow-hidden transition-colors">
       {/* Dark Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950" />
 

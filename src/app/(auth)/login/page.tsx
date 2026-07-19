@@ -173,7 +173,7 @@ export default function LoginPage() {
       </div>
 
       {/* Right Panel — Login Form */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-white">
+      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-white dark:bg-neutral-900 transition-colors">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -183,12 +183,12 @@ export default function LoginPage() {
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2 mb-8">
             <Compass className="w-7 h-7 text-teal-600" />
-            <span className="font-bold text-xl text-neutral-900">NomadAI</span>
+            <span className="font-bold text-xl text-neutral-900 dark:text-neutral-100">NomadAI</span>
           </div>
 
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-neutral-900 mb-2">Sign in</h1>
-            <p className="text-neutral-500">
+            <h1 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 mb-2">Sign in</h1>
+            <p className="text-neutral-500 dark:text-neutral-400">
               Enter your credentials to access your account
             </p>
           </div>
@@ -213,43 +213,43 @@ export default function LoginPage() {
           {/* Divider */}
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-neutral-200" />
+              <div className="w-full border-t border-neutral-200 dark:border-neutral-700" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="bg-white px-4 text-neutral-400">or sign in with email</span>
+              <span className="bg-white dark:bg-neutral-900 px-4 text-neutral-400">or sign in with email</span>
             </div>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">Email</label>
               <div className="relative">
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-neutral-400" />
                 <input
                   type="email"
                   placeholder="you@example.com"
                   {...register("email")}
-                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-400 focus:bg-white transition-all"
+                  className="w-full pl-11 pr-4 py-3 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-400 focus:bg-white dark:focus:bg-neutral-800 transition-all"
                 />
               </div>
               {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1.5">Password</label>
               <div className="relative">
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-neutral-400" />
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   {...register("password")}
-                  className="w-full pl-11 pr-12 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-400 focus:bg-white transition-all"
+                  className="w-full pl-11 pr-12 py-3 bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl text-sm text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-400 focus:bg-white dark:focus:bg-neutral-800 transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -259,8 +259,8 @@ export default function LoginPage() {
 
             <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded border-neutral-300 text-teal-600 focus:ring-teal-500" />
-                <span className="text-sm text-neutral-600">Remember me</span>
+                <input type="checkbox" className="w-4 h-4 rounded border-neutral-300 dark:border-neutral-600 text-teal-600 focus:ring-teal-500" />
+                <span className="text-sm text-neutral-600 dark:text-neutral-400">Remember me</span>
               </label>
               <Link href="#" className="text-sm text-teal-600 hover:text-teal-700 font-medium">
                 Forgot password?
@@ -281,14 +281,14 @@ export default function LoginPage() {
           <button
             onClick={handleDemoLogin}
             disabled={isLoading}
-            className="w-full mt-4 border border-teal-200 text-teal-700 py-3 rounded-xl font-medium hover:bg-teal-50 transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
+            className="w-full mt-4 border border-teal-200 dark:border-teal-800 text-teal-700 dark:text-teal-400 py-3 rounded-xl font-medium hover:bg-teal-50 dark:hover:bg-teal-950/30 transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
           >
             <Zap className="w-4 h-4" />
             {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Try Demo — Instant Login"}
           </button>
 
           {/* Register Link */}
-          <p className="text-center text-sm text-neutral-500 mt-8">
+          <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-8">
             Don&apos;t have an account?{" "}
             <Link href="/register" className="text-teal-600 hover:text-teal-700 font-semibold">
               Create one free

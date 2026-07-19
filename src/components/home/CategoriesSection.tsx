@@ -110,9 +110,9 @@ const cardVariants = {
 
 export default function CategoriesSection() {
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-24 overflow-hidden transition-colors">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50 to-white" />
+      <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 transition-colors" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-r from-teal-100/20 via-emerald-100/20 to-amber-100/20 rounded-full blur-3xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,15 +124,15 @@ export default function CategoriesSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="inline-flex items-center gap-2 bg-amber-100 text-amber-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+          <span className="inline-flex items-center gap-2 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
             <Compass className="w-4 h-4" />
             Browse Categories
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-neutral-100 mb-4">
             Explore by
             <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent"> Category</span>
           </h2>
-          <p className="text-neutral-500 text-lg max-w-2xl mx-auto">
+          <p className="text-neutral-500 dark:text-neutral-400 text-lg max-w-2xl mx-auto">
             From serene beaches to bustling cities — find the perfect escape that matches your travel style
           </p>
         </motion.div>
@@ -153,7 +153,7 @@ export default function CategoriesSection() {
               className="group relative"
             >
               <Link href="/explore" className="block h-full">
-                <div className="relative bg-white rounded-3xl border border-neutral-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                <div className="relative bg-white rounded-3xl border border-neutral-100 dark:bg-neutral-800 dark:border-neutral-700 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
                   {/* Image */}
                   <div className="relative h-48 overflow-hidden">
                     <Image
@@ -187,10 +187,10 @@ export default function CategoriesSection() {
 
                   {/* Content */}
                   <div className="p-5 flex flex-col flex-grow">
-                    <h3 className="text-lg font-bold text-neutral-900 mb-2 group-hover:text-teal-600 transition-colors">
+                    <h3 className="text-lg font-bold text-neutral-900 dark:text-neutral-100 mb-2 group-hover:text-teal-600 transition-colors">
                       {cat.title}
                     </h3>
-                    <p className="text-neutral-500 text-sm leading-relaxed mb-4 flex-grow">
+                    <p className="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed mb-4 flex-grow">
                       {cat.desc}
                     </p>
 
@@ -199,7 +199,7 @@ export default function CategoriesSection() {
                       {cat.tags.map((tag, j) => (
                         <span
                           key={j}
-                          className="bg-neutral-50 text-neutral-500 px-2.5 py-1 rounded-lg text-xs font-medium"
+                          className="bg-neutral-50 dark:bg-neutral-700/50 text-neutral-500 dark:text-neutral-400 px-2.5 py-1 rounded-lg text-xs font-medium"
                         >
                           {tag}
                         </span>
@@ -222,7 +222,7 @@ export default function CategoriesSection() {
         >
           <Link
             href="/explore"
-            className="inline-flex items-center gap-2 bg-neutral-900 text-white px-8 py-4 rounded-2xl font-semibold hover:bg-neutral-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
+            className="inline-flex items-center gap-2 bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 px-8 py-4 rounded-2xl font-semibold hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 group"
           >
             View All Categories
             <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
