@@ -10,6 +10,7 @@ import {
   LogOut,
   PlusCircle,
   LayoutDashboard,
+  BarChart3,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -41,6 +42,12 @@ export default function Navbar() {
               className="text-neutral-600 hover:text-primary transition font-medium"
             >
               About
+            </Link>
+            <Link
+              href="/data-analyzer"
+              className="text-neutral-600 hover:text-primary transition font-medium flex items-center gap-1"
+            >
+              <BarChart3 className="w-4 h-4" /> Data Analyzer
             </Link>
             <Link
               href="/contact"
@@ -120,6 +127,13 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)}
           >
             About
+          </Link>
+          <Link
+            href="/data-analyzer"
+            className="block py-2 text-neutral-700 flex items-center gap-2"
+            onClick={() => setIsOpen(false)}
+          >
+            <BarChart3 className="w-4 h-4" /> Data Analyzer
           </Link>
           <Link
             href="/contact"
