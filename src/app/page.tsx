@@ -1,6 +1,7 @@
 import HeroSection from "@/components/home/HeroSection";
 import FeaturedDestinations from "@/components/home/FeaturedDestinations";
 import MultiLanguageSection from "@/components/home/MultiLanguageSection";
+import TripMatcherSection from "@/components/home/TripMatcherSection";
 import StatsSection from "@/components/home/StatsSection";
 import CategoriesSection from "@/components/home/CategoriesSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <FeaturedDestinations />
       <MultiLanguageSection />
+      <TripMatcherSection />
       <StatsSection />
       <CategoriesSection />
       <HowItWorksSection />
