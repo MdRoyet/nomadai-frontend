@@ -28,4 +28,21 @@ export const fetchDestinationById = async (
   return data;
 };
 
+export const createDestination = async (
+  data: Partial<Destination> | FormData,
+) => {
+  const res = await api.post("/destinations", data);
+  return res.data;
+};
+
+export const fetchMyDestinations = async () => {
+  const res = await api.get("/destinations/my-listings");
+  return res.data;
+};
+
+export const deleteDestination = async (id: string) => {
+  const res = await api.delete(`/destinations/${id}`);
+  return res.data;
+};
+
 export default api;
