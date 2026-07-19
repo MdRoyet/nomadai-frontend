@@ -28,7 +28,6 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -54,9 +53,22 @@ export default function LoginPage() {
     }
   };
 
-  const handleDemoLogin = () => {
-    setValue("email", "demo@nomadai.com");
-    setValue("password", "password123");
+  const handleDemoLogin = async () => {
+    setIsLoading(true);
+    setServerError("");
+    try {
+      const res = await api.get("/auth/demo");
+      setAuth(res.data, res.data.token);
+      router.push("/");
+    } catch (err: unknown) {
+      if (err instanceof AxiosError) {
+        setServerError(err.response?.data?.message || "Failed to start demo");
+      } else {
+        setServerError("Failed to start demo");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -102,9 +114,10 @@ export default function LoginPage() {
 
         <button
           onClick={handleDemoLogin}
-          className="w-full mt-3 border border-primary text-primary py-3 rounded-xl font-semibold hover:bg-primary-50 transition"
+          disabled={isLoading}
+          className="w-full mt-3 border border-primary text-primary py-3 rounded-xl font-semibold hover:bg-primary-50 transition disabled:opacity-50 flex items-center justify-center"
         >
-          Use Demo Credentials
+          {isLoading ? <Loader2 className="animate-spin" /> : "Try Demo — Instant Login"}
         </button>
 
         <p className="text-center text-sm text-neutral-500 mt-6">
