@@ -68,7 +68,7 @@ export default function RegisterPage() {
     try {
       const res = await api.post("/auth/register", data);
       setAuth(res.data, res.data.token);
-      router.push("/");
+      router.push(res.data.role === "admin" ? "/dashboard/admin" : "/");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
         setServerError(err.response?.data?.message || "Failed to register");

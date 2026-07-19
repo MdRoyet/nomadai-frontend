@@ -31,7 +31,7 @@ export default function GoogleAuthButton({
       // Send ID token to backend
       const res = await api.post("/auth/google", { idToken });
       setAuth(res.data, res.data.token);
-      router.push("/");
+      router.push(res.data.role === "admin" ? "/dashboard/admin" : "/");
     } catch (error: any) {
       // Handle Firebase errors
       if (error.code === "auth/popup-closed-by-user") {

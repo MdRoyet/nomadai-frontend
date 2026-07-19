@@ -60,7 +60,7 @@ export default function LoginPage() {
     try {
       const res = await api.post("/auth/login", data);
       setAuth(res.data, res.data.token);
-      router.push("/");
+      router.push(res.data.role === "admin" ? "/dashboard/admin" : "/");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
         setServerError(err.response?.data?.message || "Failed to login");
@@ -78,7 +78,7 @@ export default function LoginPage() {
     try {
       const res = await api.get("/auth/demo");
       setAuth(res.data, res.data.token);
-      router.push("/");
+      router.push(res.data.role === "admin" ? "/dashboard/admin" : "/");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
         setServerError(err.response?.data?.message || "Failed to start demo");

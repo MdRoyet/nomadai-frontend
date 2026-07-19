@@ -12,6 +12,7 @@ import {
   PlusCircle,
   LayoutDashboard,
   BarChart3,
+  Shield,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -71,6 +72,14 @@ export default function Navbar() {
                 >
                   <LayoutDashboard className="w-4 h-4" /> Manage
                 </Link>
+                {user.role === "admin" && (
+                  <Link
+                    href="/dashboard/admin"
+                    className="flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400 hover:text-primary transition font-medium"
+                  >
+                    <Shield className="w-4 h-4" /> Admin
+                  </Link>
+                )}
                 <button
                   onClick={logout}
                   className="flex items-center gap-1.5 bg-secondary text-white px-4 py-2 rounded-xl font-semibold hover:bg-secondary-600 transition"
@@ -163,6 +172,15 @@ export default function Navbar() {
               >
                 Manage Listings
               </Link>
+              {user.role === "admin" && (
+                <Link
+                  href="/dashboard/admin"
+                  className="block py-2 text-neutral-700 dark:text-neutral-300"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Admin Dashboard
+                </Link>
+              )}
               <button
                 onClick={() => {
                   logout();
