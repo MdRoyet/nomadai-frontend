@@ -23,20 +23,18 @@ const footerLinks = {
   ],
   company: [
     { label: "About Us", href: "/about" },
-    { label: "Careers", href: "/careers" },
-    { label: "Press Kit", href: "/press" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "/contact" },
   ],
   resources: [
-    { label: "AI Console", href: "/dashboard/ai" },
-    { label: "List Property", href: "/items/add" },
+    { label: "AI Assistant", href: "/ai-assistant" },
+    { label: "Translator", href: "/translate" },
+    { label: "Trip Matcher", href: "/match" },
     { label: "Help Center", href: "/help" },
-    { label: "API Docs", href: "/docs" },
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
-    { label: "Cookie Policy", href: "/cookies" },
   ],
 };
 
