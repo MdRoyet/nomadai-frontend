@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import api from "@/lib/api";
+import { toast } from "react-toastify";
 
 // ─── Color Palette ───────────────────────────────────────────────────────────
 const COLORS = {
@@ -261,6 +262,7 @@ export default function AdminDashboardPage() {
       setStats(data);
     } catch (err: any) {
       setError(err?.response?.data?.message || "Failed to load dashboard data");
+      toast.error("Failed to load dashboard data");
     } finally {
       setLoading(false);
     }

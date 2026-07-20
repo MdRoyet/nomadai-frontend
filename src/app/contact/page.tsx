@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { toast } from "react-toastify";
 import {
   Mail,
   Phone,
@@ -77,6 +78,7 @@ export default function ContactPage() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log("Form submitted:", data);
     setSubmitted(true);
+    toast.success("Message sent! We'll get back to you soon.");
     reset();
   };
 

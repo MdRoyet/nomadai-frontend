@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import { toast } from "react-toastify";
 
 interface User {
   _id: string;
@@ -32,6 +33,7 @@ export const useAuthStore = create<AuthState>()(
         document.cookie = "nomadai_token=; path=/; max-age=0";
         signOut(auth).catch(() => {});
         set({ user: null, token: null });
+        toast.info("Logged out successfully");
       },
     }),
     { name: "nomadai-auth" },

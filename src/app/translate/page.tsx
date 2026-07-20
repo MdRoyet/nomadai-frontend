@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "@/lib/api";
+import { toast } from "react-toastify";
 import {
   Languages,
   ArrowRightLeft,
@@ -257,8 +258,10 @@ export default function TranslatePage() {
         targetLanguage: targetLang.code,
       });
       setResult(res.data);
+      toast.success("Translation complete!");
     } catch {
       setError("Translation failed. Please try again.");
+      toast.error("Translation failed. Please try again.");
     } finally {
       setIsTranslating(false);
     }
@@ -284,6 +287,7 @@ export default function TranslatePage() {
     try {
       await navigator.clipboard.writeText(result.translatedText);
       setCopied(true);
+      toast.success("Copied to clipboard!");
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback

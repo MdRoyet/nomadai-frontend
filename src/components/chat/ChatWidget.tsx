@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import api from "@/lib/api";
+import { toast } from "react-toastify";
 import {
   MessageCircle,
   X,
@@ -222,6 +223,7 @@ export default function ChatWidget() {
           )
         );
       } catch {
+        toast.error("Failed to get response");
         setMessages((prev) =>
           prev.map((m) =>
             m.id === streamingMessage.id

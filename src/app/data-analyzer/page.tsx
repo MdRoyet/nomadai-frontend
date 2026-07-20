@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback, useMemo } from "react";
 import api from "@/lib/api";
+import { toast } from "react-toastify";
 import {
   Upload,
   FileText,
@@ -242,8 +243,9 @@ export default function DataAnalyzerPage() {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setResult(data);
+      toast.success("Analysis complete!");
     } catch (err: any) {
-      alert(err.response?.data?.message || "Analysis failed");
+      toast.error(err.response?.data?.message || "Analysis failed");
     } finally {
       setIsLoading(false);
     }

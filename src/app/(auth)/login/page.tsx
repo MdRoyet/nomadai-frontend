@@ -9,6 +9,7 @@ import * as z from "zod";
 import { motion } from "framer-motion";
 import { AxiosError } from "axios";
 import api from "@/lib/api";
+import { toast } from "react-toastify";
 import { useAuthStore } from "@/store/authStore";
 import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
 import {
@@ -60,12 +61,15 @@ export default function LoginPage() {
     try {
       const res = await api.post("/auth/login", data);
       setAuth(res.data, res.data.token);
+      toast.success("Welcome back!");
       router.push(res.data.role === "admin" ? "/dashboard/admin" : "/");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
         setServerError(err.response?.data?.message || "Failed to login");
+        toast.error(err.response?.data?.message || "Failed to login");
       } else {
         setServerError("Failed to login");
+        toast.error("Failed to login");
       }
     } finally {
       setIsLoading(false);
@@ -78,12 +82,15 @@ export default function LoginPage() {
     try {
       const res = await api.get("/auth/demo");
       setAuth(res.data, res.data.token);
+      toast.success("Welcome to NomadAI!");
       router.push(res.data.role === "admin" ? "/dashboard/admin" : "/");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
         setServerError(err.response?.data?.message || "Failed to start demo");
+        toast.error("Failed to start demo");
       } else {
         setServerError("Failed to start demo");
+        toast.error("Failed to start demo");
       }
     } finally {
       setIsLoading(false);

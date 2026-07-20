@@ -6,6 +6,7 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/lib/firebase";
 import { useAuthStore } from "@/store/authStore";
 import api from "@/lib/api";
+import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 
 interface GoogleAuthButtonProps {
@@ -31,6 +32,7 @@ export default function GoogleAuthButton({
       // Send ID token to backend
       const res = await api.post("/auth/google", { idToken });
       setAuth(res.data, res.data.token);
+      toast.success("Signed in with Google!");
       router.push(res.data.role === "admin" ? "/dashboard/admin" : "/");
     } catch (error: any) {
       // Handle Firebase errors
@@ -39,18 +41,21 @@ export default function GoogleAuthButton({
       }
       if (error.code === "auth/popup-blocked") {
         onError?.("Pop-up was blocked. Please allow pop-ups for this site.");
+        toast.warning("Pop-up was blocked. Please allow pop-ups.");
         return;
       }
 
       // Handle backend errors
       if (error.response?.data?.message) {
         onError?.(error.response.data.message);
+        toast.error(error.response.data.message);
       } else {
         onError?.(
           mode === "login"
             ? "Failed to sign in with Google"
             : "Failed to sign up with Google"
         );
+        toast.error(error.response?.data?.message || "Failed to sign in with Google");
       }
     } finally {
       setIsLoading(false);

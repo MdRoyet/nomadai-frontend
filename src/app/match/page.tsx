@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import api from "@/lib/api";
+import { toast } from "react-toastify";
 import {
   Sparkles,
   ArrowRight,
@@ -302,8 +303,10 @@ export default function MatchPage() {
         image: r.destination?.images?.[0] || "",
       }));
       setResults(mapped.length > 0 ? mapped : FALLBACK_RESULTS);
+      toast.success("Found your perfect matches!");
     } catch {
       setResults(FALLBACK_RESULTS);
+      toast.info("Using demo results");
     } finally {
       setIsLoading(false);
       setIsQuizComplete(true);

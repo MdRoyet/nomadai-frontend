@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 import {
   Compass,
   ArrowUp,
@@ -55,6 +56,7 @@ export default function Footer() {
     if (email) {
       setSubscribed(true);
       setEmail("");
+      toast.success("Subscribed to newsletter!");
       setTimeout(() => setSubscribed(false), 3000);
     }
   };

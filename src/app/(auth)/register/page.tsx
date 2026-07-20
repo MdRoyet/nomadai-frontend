@@ -9,6 +9,7 @@ import * as z from "zod";
 import { motion } from "framer-motion";
 import { AxiosError } from "axios";
 import api from "@/lib/api";
+import { toast } from "react-toastify";
 import { useAuthStore } from "@/store/authStore";
 import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
 import {
@@ -68,12 +69,15 @@ export default function RegisterPage() {
     try {
       const res = await api.post("/auth/register", data);
       setAuth(res.data, res.data.token);
+      toast.success("Account created successfully!");
       router.push(res.data.role === "admin" ? "/dashboard/admin" : "/");
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
         setServerError(err.response?.data?.message || "Failed to register");
+        toast.error(err.response?.data?.message || "Failed to register");
       } else {
         setServerError("Failed to register");
+        toast.error("Failed to register");
       }
     } finally {
       setIsLoading(false);
