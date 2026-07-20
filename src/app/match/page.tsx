@@ -241,7 +241,17 @@ export default function MatchPage() {
       try {
         const res = await api.get("/quiz");
         if (res.data?.questions?.length) {
-          setQuestions(res.data.questions);
+          // Map API fields (value/icon) to frontend fields (id/emoji)
+          const mapped = res.data.questions.map((q: any) => ({
+            id: q.id,
+            question: q.question,
+            options: q.options.map((o: any) => ({
+              id: o.value || o.id,
+              label: o.label,
+              emoji: o.icon || o.emoji,
+            })),
+          }));
+          setQuestions(mapped);
         }
       } catch {
         // Use fallback data
