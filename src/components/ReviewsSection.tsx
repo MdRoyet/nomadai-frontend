@@ -42,7 +42,7 @@ export default function ReviewsSection({ destinationId, rating }: ReviewsSection
   const fetchReviews = async () => {
     try {
       setLoading(true);
-      const response = await api.get(`/api/reviews/destination/${destinationId}`);
+      const response = await api.get(`/reviews/destination/${destinationId}`);
       setReviews(response.data);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -61,7 +61,7 @@ export default function ReviewsSection({ destinationId, rating }: ReviewsSection
 
     try {
       setSubmitting(true);
-      await api.post('/api/reviews', {
+      await api.post('/reviews', {
         destinationId,
         rating: formData.rating,
         title: formData.title,
@@ -80,7 +80,7 @@ export default function ReviewsSection({ destinationId, rating }: ReviewsSection
 
   const handleDeleteReview = async (reviewId: string) => {
     try {
-      await api.delete(`/api/reviews/${reviewId}`);
+      await api.delete(`/reviews/${reviewId}`);
       toast.success('Review deleted');
       fetchReviews();
     } catch (error) {

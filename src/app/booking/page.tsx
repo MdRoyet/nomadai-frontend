@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { toast } from "react-toastify";
 import api from "@/lib/api";
+import { useAuthStore } from "@/store/authStore";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -104,6 +105,27 @@ function SearchDestinationForm({ onFound }: { onFound: (d: { id: string; price: 
 export default function BookingPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { user } = useAuthStore();
+  const [checked, setChecked] = useState(false);
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (user === null) {
+      // user is null when not logged in (after hydration)
+      toast.info("Please login to book a destination");
+      router.push("/login?from=" + encodeURIComponent(window.location.pathname + window.location.search));
+    } else {
+      setChecked(true);
+    }
+  }, [user, router]);
+
+  if (!checked) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
+      </div>
+    );
+  }
 
   const destinationId = searchParams.get("destinationId");
   const priceParam = searchParams.get("price");
