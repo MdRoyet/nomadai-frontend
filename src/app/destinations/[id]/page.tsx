@@ -3,9 +3,13 @@
 import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 import { fetchDestinationById } from "@/lib/api";
-import { MapPin, Star, Tag } from "lucide-react";
+import { MapPin, Star, Tag, Calendar, Users, Heart, Share2 } from "lucide-react";
 import DestinationCard from "@/components/marketplace/DestinationCard";
+import ReviewsSection from "@/components/ReviewsSection";
+import ShareButtons from "@/components/ShareButtons";
+import DestinationMap from "@/components/DestinationMap";
 
 export default function DestinationDetailsPage({
   params,
@@ -72,6 +76,25 @@ export default function DestinationDetailsPage({
             </span>
             <span className="text-neutral-400"> /night</span>
           </div>
+
+          {/* Book Now + Actions */}
+          <div className="flex flex-wrap gap-3 mt-6">
+            <Link
+              href={`/booking?destinationId=${destination._id}&price=${destination.price}&title=${encodeURIComponent(destination.title)}&location=${encodeURIComponent(destination.location)}`}
+              className="flex-1 bg-gradient-to-r from-primary to-emerald-600 text-white py-3.5 rounded-xl font-semibold text-center hover:from-primary-700 hover:to-emerald-700 transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+            >
+              <Calendar className="w-5 h-5" /> Book Now
+            </Link>
+          </div>
+
+          {/* Share */}
+          <div className="mt-6">
+            <ShareButtons
+              title={destination.title}
+              url={typeof window !== "undefined" ? window.location.href : ""}
+              description={destination.short_desc}
+            />
+          </div>
         </div>
       </div>
 
@@ -97,6 +120,16 @@ export default function DestinationDetailsPage({
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Map */}
+      <div className="mb-12">
+        <DestinationMap location={destination.location} title={destination.title} />
+      </div>
+
+      {/* Reviews */}
+      <div className="mb-12">
+        <ReviewsSection destinationId={destination._id} rating={destination.rating} />
       </div>
 
       {/* Related Items */}

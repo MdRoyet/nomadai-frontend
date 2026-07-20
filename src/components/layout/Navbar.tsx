@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useAuthStore } from "@/store/authStore";
 import ThemeToggle from "@/components/ThemeToggle";
+import CurrencySelector from "@/components/CurrencySelector";
 import {
   Menu,
   X,
@@ -13,6 +14,7 @@ import {
   LayoutDashboard,
   BarChart3,
   Shield,
+  Map,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -57,6 +59,8 @@ export default function Navbar() {
             >
               Contact
             </Link>
+
+            <CurrencySelector />
 
             {user ? (
               <>
