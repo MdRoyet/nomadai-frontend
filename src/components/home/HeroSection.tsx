@@ -104,15 +104,12 @@ export default function HeroSection() {
   const [isPaused, setIsPaused] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  const paginate = useCallback(
-    (newDirection: number) => {
-      setCurrent(([prev]) => {
-        const next = (prev + newDirection + slides.length) % slides.length;
-        return [next, newDirection];
-      });
-    },
-    []
-  );
+  const paginate = useCallback((newDirection: number) => {
+    setCurrent(([prev]) => {
+      const next = (prev + newDirection + slides.length) % slides.length;
+      return [next, newDirection];
+    });
+  }, []);
 
   useEffect(() => {
     if (isPaused) return;
@@ -162,9 +159,12 @@ export default function HeroSection() {
 
       {/* Animated mesh pattern */}
       <div className="absolute inset-0 z-[2] opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
       </div>
 
       {/* Floating orbs */}
@@ -176,12 +176,22 @@ export default function HeroSection() {
       <motion.div
         className="absolute bottom-32 right-[25%] w-48 h-48 rounded-full bg-amber-500/10 blur-3xl z-[2]"
         animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 2,
+        }}
       />
       <motion.div
         className="absolute top-1/2 left-[10%] w-36 h-36 rounded-full bg-violet-500/10 blur-3xl z-[2]"
         animate={{ y: [0, -25, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        transition={{
+          duration: 7,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: 1,
+        }}
       />
 
       {/* Main Content */}
@@ -196,7 +206,9 @@ export default function HeroSection() {
           >
             {/* Badge */}
             <motion.div variants={itemVariants} className="mb-6">
-              <span className={`inline-flex items-center gap-2 bg-gradient-to-r ${slide.accent} text-white px-5 py-2 rounded-full text-sm font-semibold backdrop-blur-sm shadow-lg`}>
+              <span
+                className={`inline-flex items-center gap-2 bg-gradient-to-r ${slide.accent} text-white px-5 py-2 rounded-full text-sm font-semibold backdrop-blur-sm shadow-lg`}
+              >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
@@ -262,7 +274,9 @@ export default function HeroSection() {
                 >
                   <feat.icon className="w-4 h-4 text-teal-300" />
                   <span className="font-medium">{feat.label}</span>
-                  <span className="text-white/50 hidden sm:inline">— {feat.desc}</span>
+                  <span className="text-white/50 hidden sm:inline">
+                    — {feat.desc}
+                  </span>
                 </motion.div>
               ))}
             </motion.div>
@@ -310,7 +324,9 @@ export default function HeroSection() {
                     key={current}
                   />
                 </div>
-                <span className="text-sm mt-1">/ {String(slides.length).padStart(2, "0")}</span>
+                <span className="text-sm mt-1">
+                  / {String(slides.length).padStart(2, "0")}
+                </span>
               </div>
             </div>
 
@@ -323,18 +339,20 @@ export default function HeroSection() {
                   className="group relative p-1"
                   aria-label={`Go to slide ${i + 1}`}
                 >
-                  <div className={`h-2 rounded-full transition-all duration-500 ${
-                    i === current
-                      ? "w-10 bg-gradient-to-r from-teal-400 to-emerald-400"
-                      : "w-2 bg-white/40 group-hover:bg-white/60"
-                  }`} />
+                  <div
+                    className={`h-2 rounded-full transition-all duration-500 ${
+                      i === current
+                        ? "w-10 bg-gradient-to-r from-teal-400 to-emerald-400"
+                        : "w-2 bg-white/40 group-hover:bg-white/60"
+                    }`}
+                  />
                 </button>
               ))}
             </div>
 
             {/* Right: Brand watermark */}
             <div className="hidden sm:block text-white/30 text-sm font-medium">
-              NomadAI © 2025
+              NomadAI © 2026
             </div>
           </div>
         </div>
