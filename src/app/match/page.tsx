@@ -286,7 +286,22 @@ export default function MatchPage() {
         climate: answers.climate,
         duration: answers.duration,
       });
-      setResults(res.data?.results || FALLBACK_RESULTS);
+      // Map backend response to frontend format
+      const recs = res.data?.recommendations || [];
+      const mapped = recs.map((r: any) => ({
+        id: r.destination?._id || r.destinationId,
+        name: r.destination?.title || r.destinationId,
+        location: r.destination?.location || "",
+        price: r.destination?.price ? `$${r.destination.price}/night` : r.estimatedBudget || "",
+        rating: r.destination?.rating || 0,
+        matchScore: r.matchScore || 0,
+        reason: r.reason || "",
+        highlights: r.highlights || [],
+        bestFor: r.bestFor || "",
+        bestTime: r.bestTimeToVisit || "",
+        image: r.destination?.images?.[0] || "",
+      }));
+      setResults(mapped.length > 0 ? mapped : FALLBACK_RESULTS);
     } catch {
       setResults(FALLBACK_RESULTS);
     } finally {
